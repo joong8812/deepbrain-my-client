@@ -44,11 +44,15 @@ export default function BoardList() {
           </tr>
         ) : (
           data.map((board) => (
-            <tr key={board.passengerId}>
-              <td>{board.passengerId}</td>
+            <tr key={board.id}>
               <td>{board.name}</td>
-              <td>{board.teamId}</td>
-              <td>{board.subject}</td>
+              <td>{board.type}</td>
+              <td>{board.address}</td>
+              <td>{board.glamping}</td>
+              <td>{board.caravan}</td>
+              <td>{board.toilet}</td>
+              <td>{board.shower}</td>
+              <td>{board.wash}</td>
             </tr>
           ))
         )}
