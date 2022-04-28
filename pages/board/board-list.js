@@ -17,9 +17,9 @@ export default function BoardList() {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/board/list")
+      .get("http://localhost:5000/campsites")
       .then((res) => {
-        setData(res.data.boards);
+        setData(res.data);
       })
       .catch((err) => {});
   }, []);
@@ -43,16 +43,16 @@ export default function BoardList() {
             <td colSpan={12}>게시글 없음</td>
           </tr>
         ) : (
-          data.map((board) => (
-            <tr key={board.id}>
-              <td>{board.name}</td>
-              <td>{board.type}</td>
-              <td>{board.address}</td>
-              <td>{board.glamping}</td>
-              <td>{board.caravan}</td>
-              <td>{board.toilet}</td>
-              <td>{board.shower}</td>
-              <td>{board.wash}</td>
+          data.map((campsite) => (
+            <tr key={campsite._id}>
+              <td>{campsite.name}</td>
+              <td>{campsite.type}</td>
+              <td>{campsite.address}</td>
+              <td>{campsite.glamping}</td>
+              <td>{campsite.caravan}</td>
+              <td>{campsite.toilet}</td>
+              <td>{campsite.shower}</td>
+              <td>{campsite.wash}</td>
             </tr>
           ))
         )}
