@@ -52,6 +52,18 @@ const campsiteSlice = createSlice({
       state.data = payload;
       state.loading = false;
     },
+    deleteRequest(state: CampsiteState, payload) {
+      state.loading = true;
+    },
+    deleteSuccess(state: CampsiteState, { payload }) {
+      state.data = [...state.data, payload];
+      state.loading = false;
+      window.location.href = '/campsite/list'
+    },
+    deleteFail(state: CampsiteState, { payload }) {
+      state.data = payload;
+      state.loading = false;
+    },
   },
 });
 

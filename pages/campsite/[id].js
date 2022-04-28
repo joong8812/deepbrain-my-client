@@ -37,7 +37,7 @@ const updateCampsite = ({data,id}) => {
     setCampsite({ ...campsite, [name]: value });
   };
 
-  const addCampsiteHandler = (e) => {
+  const updateCampsiteHandler = (e) => {
     e.preventDefault();
     dispatch(campsiteActions.updateRequest(campsite));
     setCampsite({
@@ -52,13 +52,18 @@ const updateCampsite = ({data,id}) => {
       wash: "",
     });
   };
+  
+  const deleteCampsiteHandler = (e) => {
+    dispatch(campsiteActions.deleteRequest(campsite));
+  }
+
   return (
-    <form onSubmit={addCampsiteHandler}>
+    <form onSubmit={updateCampsiteHandler}>
       <table className={tableStyles.table}>
         <thead>
           <tr>
             <th colSpan={2}>
-              <h1>캠핑장 등록</h1>
+              <h1>캠핑장 수정 & 삭제</h1>
             </th>
           </tr>
         </thead>
@@ -132,7 +137,8 @@ const updateCampsite = ({data,id}) => {
           </tr>
           <tr>
             <td colSpan={2}>
-              <button type="submit">수정</button>
+              <button type="submit" style={{marginRight:1+'rem'}}>수정</button>
+              <button type="button" onClick={deleteCampsiteHandler}>삭제</button>
               <br />
             </td>
           </tr>

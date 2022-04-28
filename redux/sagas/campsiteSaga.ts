@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects'
 import { campsiteActions } from '../reducers/campsiteReducer.ts';
-import { addApi, updateApi } from '../api/campsiteApi.ts'
+import { addApi, updateApi, deleteApi } from '../api/campsiteApi.ts'
 
 interface CampsiteType{
   type: string;
@@ -17,16 +17,16 @@ interface CampsiteType{
   }
 }
 
-interface CampsiteCUSuccessType {
+interface CampsiteCUDSuccessType {
   type: string;
   payload: {
     ok: string
   }
 }
 
-function* add(campsite: CampsiteType){
+function* addCampsite(campsite: CampsiteType){
   try {
-    const response : CampsiteCUSuccessType = yield addApi(campsite.payload)
+    const response : CampsiteCUDSuccessType = yield addApi(campsite.payload)
     yield put(campsiteActions.addSuccess(response))
   } catch (err) {
     yield put(campsiteActions.addFail(err))
@@ -34,12 +34,12 @@ function* add(campsite: CampsiteType){
 }
 
 export function* watchAdd(){
-  yield takeLatest(campsiteActions.addRequest, add)
+  yield takeLatest(campsiteActions.addRequest, addCampsite)
 }
 
-function* update(campsite: CampsiteType){
+function* updateCampsite(campsite: CampsiteType){
   try {
-    const response : CampsiteCUSuccessType = yield updateApi(campsite.payload)
+    const response : CampsiteCUDSuccessType = yield updateApi(campsite.payload)
     yield put(campsiteActions.updateSuccess(response))
   } catch (err) {
     yield put(campsiteActions.updateFail(err))
@@ -47,5 +47,18 @@ function* update(campsite: CampsiteType){
 }
 
 export function* watchUpdate(){
-  yield takeLatest(campsiteActions.updateRequest, update)
+  yield takeLatest(campsiteActions.updateRequest, updateCampsite)
+}
+
+function* deleteCampsite(campsite: CampsiteType){
+  try {
+    const response : CampsiteCUDSuccessType = yield deleteApi(campsite.payload)
+    yield put(campsiteActions.deleteSuccess(response))
+  } catch (err) {
+    yield put(campsiteActions.delteFail(err))
+  }
+}
+
+export function* watchDelete(){
+  yield takeLatest(campsiteActions.deleteRequest, deleteCampsite)
 }

@@ -61,3 +61,17 @@ export const updateApi = async (payload: {
     return err;
   }
 };
+
+export const deleteApi = async (payload: {
+  id: string;
+}) => {
+  try {
+    const response: AxiosResponse<unknown, CampsiteType[]> = await axios.delete(
+      `${SERVER}/campsites/${payload.id}`,
+      { headers }
+    );
+    return response.data;
+  } catch (err) {
+    return err;
+  }
+};
