@@ -1,11 +1,11 @@
-import { PayloadAction } from '@reduxjs/toolkit'
-import { call, delay, put, takeLatest } from 'redux-saga/effects'
+import { put, takeLatest } from 'redux-saga/effects'
 import { campsiteActions } from '../reducers/campsiteReducer.ts';
-import { addApi } from '../api/campsiteApi.ts'
+import { addApi, updateApi } from '../api/campsiteApi.ts'
 
-interface CampsiteAddType{
+interface CampsiteType{
   type: string;
   payload: {
+    id: string,
     name: string,
     type: string,
     address: string,
@@ -17,16 +17,16 @@ interface CampsiteAddType{
   }
 }
 
-interface CampsiteAddSuccessType {
+interface CampsiteCUSuccessType {
   type: string;
   payload: {
     ok: string
   }
 }
 
-function* add(campsite: CampsiteAddType){
+function* add(campsite: CampsiteType){
   try {
-    const response : CampsiteAddSuccessType = yield addApi(campsite.payload)
+    const response : CampsiteCUSuccessType = yield addApi(campsite.payload)
     yield put(campsiteActions.addSuccess(response))
   } catch (err) {
     yield put(campsiteActions.addFail(err))
@@ -35,4 +35,17 @@ function* add(campsite: CampsiteAddType){
 
 export function* watchAdd(){
   yield takeLatest(campsiteActions.addRequest, add)
+}
+
+function* update(campsite: CampsiteType){
+  try {
+    const response : CampsiteCUSuccessType = yield updateApi(campsite.payload)
+    yield put(campsiteActions.updateSuccess(response))
+  } catch (err) {
+    yield put(campsiteActions.updateFail(err))
+  }
+}
+
+export function* watchUpdate(){
+  yield takeLatest(campsiteActions.updateRequest, update)
 }

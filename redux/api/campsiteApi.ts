@@ -38,3 +38,26 @@ export const addApi = async (payload: {
     return err;
   }
 };
+
+export const updateApi = async (payload: {
+  id: string;
+  name: string;
+  type: string;
+  address: string;
+  glamping: string;
+  caravan: string;
+  toilet: string;
+  shower: string;
+  wash: string;
+}) => {
+  try {
+    const response: AxiosResponse<unknown, CampsiteType[]> = await axios.patch(
+      `${SERVER}/campsites/${payload.id}`,
+      payload,
+      { headers }
+    );
+    return response.data;
+  } catch (err) {
+    return err;
+  }
+};

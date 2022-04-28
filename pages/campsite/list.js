@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link"
 import tableStyles from "../../components/common/styles/table.module.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -45,7 +46,7 @@ export default function BoardList() {
         ) : (
           data.map((campsite) => (
             <tr key={campsite._id}>
-              <td>{campsite.name}</td>
+              <td><Link href={`/campsite/${campsite._id}/`}>{campsite.name}</Link></td>
               <td>{campsite.type}</td>
               <td>{campsite.address}</td>
               <td>{campsite.glamping}</td>

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface CampsiteType {
+  id: string;
   name: string;
   type: string;
   address: string;
@@ -36,6 +37,18 @@ const campsiteSlice = createSlice({
       window.location.href = '/campsite/list'
     },
     addFail(state: CampsiteState, { payload }) {
+      state.data = payload;
+      state.loading = false;
+    },
+    updateRequest(state: CampsiteState, payload) {
+      state.loading = true;
+    },
+    updateSuccess(state: CampsiteState, { payload }) {
+      state.data = [...state.data, payload];
+      state.loading = false;
+      window.location.href = '/campsite/list'
+    },
+    updateFail(state: CampsiteState, { payload }) {
       state.data = payload;
       state.loading = false;
     },
