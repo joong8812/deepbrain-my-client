@@ -1,26 +1,35 @@
-import React, { useEffect } from 'react'
-import tableStyles from '../components/common/styles/table.module.css'
+import React, { useEffect } from "react";
+import tableStyles from "../components/common/styles/table.module.css";
 import axios from "axios";
 export default function Home() {
   useEffect(() => {
-    axios.get("http://localhost:5000/api/now").then((res) => {
-      var data = res.data;
-      document.getElementById("timeZone").innerHTML = '<h1>현재시간: '+data.now+'<h1>'
-    });
-  },[]);
+    const loginUser = localStorage.getItem("loginUser");
+    const user = JSON.parse(loginUser);
+    if (loginUser === null) {
+      axios.get("http://localhost:5000/api/now").then((res) => {
+        var data = res.data;
+        document.getElementById("timeZone").innerHTML = "<h1>현재시간: " + data.now + "<h1>";
+      });
+    } else {
+      document.getElementById("timeZone").innerHTML = "<h1>환영합니다: " + user.name + "<h1>";
+    }
+  }, []);
   return (
     <table className={tableStyles.table}>
-    <thead>
+      <thead>
         <tr>
-            <th><h2>HOME</h2></th>
+          <th>
+            <h2>HOME</h2>
+          </th>
         </tr>
-    </thead>
-    <tbody>
-        <tr >
-        <td>
-            <div id="timeZone">현재시간</div></td>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div id="timeZone">현재시간</div>
+          </td>
         </tr>
-    </tbody>
-  </table>
-  )
+      </tbody>
+    </table>
+  );
 }
