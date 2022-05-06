@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { userActions } from '../../redux/reducers/userReducer.ts';
 import tableStyles from "../../components/common/styles/table.module.css";
 
 export default function Login() {
@@ -6,7 +8,7 @@ export default function Login() {
     userid: "",
     password: "",
   });
-
+  const dispatch = useDispatch()
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -18,6 +20,7 @@ export default function Login() {
       onSubmit={(e) => {
         e.preventDefault();
         alert("진행 1: 로그인 클릭");
+        dispatch(userActions.loginRequest(login))
         setLogin({
           userid: "",
           password: "",
