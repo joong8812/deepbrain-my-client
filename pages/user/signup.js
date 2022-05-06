@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { userActions } from '../../redux/reducers/userReducer.ts'
 import tableStyles from "../../components/common/styles/table.module.css";
 
 export default function Join() {
@@ -11,6 +13,7 @@ export default function Join() {
     birth: "",
     address: "",
   });
+  const dispatch = useDispatch()
   const handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -21,6 +24,7 @@ export default function Join() {
       onSubmit={(e) => {
         e.preventDefault();
         alert("진행 1: 회원가입 클릭");
+        dispatch(userActions.signupRequest(user))
         setUser({
           userid: "",
           password: "",
@@ -54,7 +58,7 @@ export default function Join() {
               <b>비밀번호</b>
             </td>
             <td>
-              <input type="text" name="password" onChange={handleChange} />
+              <input type="password" name="password" onChange={handleChange} />
             </td>
           </tr>
           <tr>
@@ -62,7 +66,7 @@ export default function Join() {
               <b>이메일</b>
             </td>
             <td>
-              <input type="text" name="email" onChange={handleChange} />
+              <input type="email" name="email" onChange={handleChange} />
             </td>
           </tr>
 

@@ -19,7 +19,6 @@ export default function Login() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        alert("진행 1: 로그인 클릭");
         dispatch(userActions.loginRequest(login))
         setLogin({
           userid: "",
@@ -49,7 +48,7 @@ export default function Login() {
               <b>비밀번호</b>
             </td>
             <td>
-              <input type="text" name="password" onChange={handleChange} />
+              <input type="password" name="password" onChange={handleChange} />
             </td>
           </tr>
           <tr>
