@@ -43,11 +43,9 @@ interface UserLoginSuccessType {
 
 function* signup(user: UserSignupType) {
   try {
-    alert(" 진행 3: saga내부 join 성공  " + JSON.stringify(user));
     const response: UserSignupSuccessType = yield signupApi(user.payload);
     yield put(userActions.signupSuccess(response));
   } catch (error) {
-    alert("진행 3: saga내부 join 실패  ");
     yield put(userActions.signpuFailure(error));
   }
 }

@@ -29,20 +29,18 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         signupRequest(state: UserState, payload){
-            alert('진행 2: 리듀서 내부 ') 
             state.loading = true; 
         },
         signupSuccess(state: UserState, {payload}){ 
             state.data = [...state.data, payload]
             state.loading = false;
-            
+            window.location.href = '/user/login'
         },
         signupFailure(state: UserState, {payload}){ 
             state.data = payload;
             state.loading = false;
         },
         loginRequest(state: UserState, payload){
-            alert('진행 2: 리듀서 내부 - login') 
             state.loading = true; 
         },
         loginSuccess(state: UserState, {payload}){ 
